@@ -3,26 +3,33 @@
 import ply.lex as lex
 
 #Lista con los nombres de los tokens
+
 tokens = [
-# Palabra Clave
+    # Palabra Clave
+    'CLASS', 'EXTENDS', 'VOID', 'THIS', 'NEW', 'LENGTH', 'TRUE', 'FALSE',
+    'NULL',
+    #Control de flujo
 
-#Control de flujo
+    'IF', 'ELSE', 'RETURN', 'WHILE', 'BREAK', 'CONTINUE', 'FOR',
 
-'IF', 'FOR', 'RETURN', 'WHILE'
+    #Operadores y delimitadores
 
-#Operadores y delimitadores
+    'MAS', 'MENOS', 'MULT', 'DIV', 'ASIGN', 'PUNTOCOMA', 'PARIZQ', 'PARDER', 
+    'CORIZQ', 'CORDER', 'LLAVEIZQ', 'LLAVEDER', 'COMA',
 
-'MAS', 'MENOS', 'MULT', 'DIV', 'ASIGN', 'PUNTOCOMA', 'PARIZQ', 'PARDER', 
-'CORIZQ', 'CORDER','COMA', 'LLAVEIZQ', 'LLAVEDER'
+    # Operadores booleanos
 
-# Operadores booleanos
+    'MENOR', 'MENOREQ', 'IGUAL', 'MAYOR', 'MAYOREQ', 'DIFERENTE',
 
-'MENOR', 'MENOREQ', 'MAYOR', 'MAYOREQ', 'IGUAL', 'DIFERENTE' 
+    #Operadores logicos
 
-#Literales
-'ENTERO', 'FLOAT', 'STRING', 'BOOLEAN'
+    'AND', 'OR',
 
-t_ignore = '\t\r\n '
+    #Literales
+    'INT', 'FLOAT', 'STRING', 'BOOLEAN',
+]
+
+t_ignore = ' \t\r'
 
 t_MAS = r'\+'
 t_MENOS = r'-'
@@ -35,7 +42,14 @@ t_PARDER = r'\)'
 t_CORIZQ = r'\['
 t_CORDER = r'\]'
 t_COMA = r','
-
+t_MENOR = r'<'
+t_MENOREQ = r'<='
+t_IGUAL = r'=='
+t_MAYOR = r'>'
+t_MAYOREQ = r'>='
+t_DIFERENTE = r'!='
+t_AND = r'&&'
+t_OR = r'||'
   ]
 
 # Listado de palabras reservadas en Java
