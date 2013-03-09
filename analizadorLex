@@ -77,7 +77,7 @@ reservados = {
         'null':'NULL'
 }
 operadores = {
-    r'+' : "MAS",
+    	r'+' : "MAS",
 	r'-' : "MENOS",
 	r'*' : "MULT",
 	r'/' : "DIVI",
