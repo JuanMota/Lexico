@@ -6,8 +6,10 @@ import ply.lex as lex
 
 tokens = [
     # Palabra Clave
+
     'CLASS', 'EXTENDS', 'VOID', 'THIS', 'NEW', 'LENGTH', 'TRUE', 'FALSE',
     'NULL',
+
     #Control de flujo
 
     'IF', 'ELSE', 'RETURN', 'WHILE', 'BREAK', 'CONTINUE', 'FOR',
@@ -50,7 +52,52 @@ t_MAYOREQ = r'>='
 t_DIFERENTE = r'!='
 t_AND = r'&&'
 t_OR = r'||'
-  ]
+
+#Diccionario de palabras reservadas y de operadores
+
+reservados = {
+        'class':'CLASS',
+        'extends':'EXTENDS',
+        'void': 'VOID',
+        'int':'INT',
+        'float':'FLOAT'
+        'boolean', 'BOOLEAN',
+        'string':'STRING'
+        'return':'RETURN'
+        'if':'IF'
+        'else':'ELSE',
+        'while':'WHILE',
+        'break':'BREAK',
+        'continue':'CONTINUE',
+        'this':'THIS',
+        'new':'NEW',
+        'length':'LENGTH',
+        'true':'TRUE',
+        'false':'FALSE',
+        'null':'NULL'
+}
+operadores = {
+    r'+' : "MAS",
+	r'-' : "MENOS",
+	r'*' : "MULT",
+	r'/' : "DIVI",
+	r':=' : "ASIGN",
+	r';' : "PUNTOCOMA",
+	r'(' : "PARENIZQ",
+	r')' : "PARENDER",
+        r'[' : "CORIZQ",
+        r']' : "CORDER",
+	r',' : "COMA",
+        r'<' : "MENOR",
+	r'<=' : "MENOREQ",
+	r'==' : "IGUAL",
+	r'>=' : "MAYOREQ",
+	r'>' : "MAYOR",
+	r'!=' : "DIFERENTE",
+	r'&&' : "AND",
+	r'||' : "OR",
+	
+}
 
 # Listado de palabras reservadas en Java
 
