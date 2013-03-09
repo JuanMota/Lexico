@@ -22,7 +22,7 @@ tokens = [
 #Literales
 'ENTERO', 'FLOAT', 'STRING', 'BOOLEAN'
 
-t_ignore = '\t\r'
+t_ignore = '\t\r\n '
 
 t_MAS = r'\+'
 t_MENOS = r'-'
@@ -46,3 +46,15 @@ t_COMA = r','
 #new, package, private, protected, public, return, short, static, strictfp,
 #super, switch, synchronized, this, throw, throws, transient, try, void,
 #volatile, while
+
+# Descripcion de la expresion regular para los enteros
+def t_ENTEROS(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t    
+
+# Descripcion de la expresion regular para los hexadecimales
+def t_HEXA(t):
+    r'0[xX][0-9a-fA-F]+'
+    return t
+
