@@ -70,7 +70,7 @@ tokens = [
     
 ] + list(reservadas.values())
 
-#los literales son todas expresiones atomicas que nuestro lenguaje necesite para realizar una operacion
+# Los literales son todas expresiones atomicas que nuestro lenguaje necesite para realizar una operacion
 literales = ('=','<','>','.',';',':',',','-','+','/','*','(',')','[',']','{','}','!','%')
 
 
@@ -116,7 +116,32 @@ t_DOSPUNTOS = r':'
 def t_error(t):
     print "Caracter ilegal '%s'" % t.value[0]
     t.lexer.skip(1)
+
+# Token para el manejo de error del comentario no abierto    
+def t_error_COMENTARIO_NoAbierto(t): 
+        r'\*/'
+        print "Error en COMENTARIO, en la linea '%d': No abierto"%(t.lexer.lineno)
+        pass
+
+# Token para el manejo de error del comentario no cerrado
+def t_error_COMENTARIO_NoCerrado(t): 
+        r'/\*.*(?!\*/)'
+        print "Error en COMENTARIO, en la linea '%d': No cerrado"%(t.lexer.lineno)
+        pass       
+
+# Token para errores presentes en numeros de puntos flotantes
+def t_ERROR_puntodec(t):
+        #r'[0-9]*[\.][\.]+[0-9]+(?:[eE][-+][0-9]+)?'
+        r'((\d+[\.][\.]+\d*|\d*[\.][\.]+\d+)([eE][-+]?[0-9]+)?)'
+        print "Error en Notacion, en la linea '%d' mas de un [\.] "%(t.lexer.lineno)
+
+def t_ERROR_notacientifica(t):
+        r'[-+]?[0-9]*\.[0-9]+[eE][eE]+[-+]?[0-9]+'
+        print "Error en Notacion, en la linea '%d' mas de un simbolo e a la izquierda"%(t.lexer.lineno)
+
     
+##############################################################################
+
 # Expresion Regular Para Los Numeros En Flotante
 def t_FLOAT(t):
     r'(([-+]?\d+\.\d*|\d*\.\d+)([eE][-+]?[0-9]+)?)|[-+]?([0-9]+[eE][-+]?[0-9]+)'
@@ -154,8 +179,11 @@ def t_IDENTIFICADOR(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     t.type = reservadas.get(t.value,'IDENTIFICADOR') 
     if len(t.value)>20:
-        print "Error lexico en la linea %d posicion %d en identificador: (%s): excede los caracteres permitidos" % (t.lexer.lineno,t.lexer.lexpos,t.value)
-        return 0
+        print "El valor de ID excede  en la linea %d posicion %d en identificador: (%s): excede los caracteres permitidos" % (t.lexer.lineno,t.lexer.lexpos,t.value)
+        l = t.value
+        print l[:20]
+        t.value = l[:20]
+        return t
     else:
         return t 
 
@@ -165,7 +193,7 @@ def t_nuevalinea(t):
     t.lexer.lineno += len(t.value)
     
 # Token para ignorar caracteres especiales
-t_ignore  = ' \t\n'
+t_ignore  = ' \t'
 
 #########################################################################
 ####### Construccion, Recorrido Del Archivo Y Funcionamiento ############
@@ -176,7 +204,7 @@ t_ignore  = ' \t\n'
 # Recordando que todo el archivo lo lee como texto plano.
 
 # Abrimos el archivo en modo lectura
-archivo = open('/home/serna/Compiladores /Lexer/pruebas/pruebacomen.txt','r')
+archivo = open('/home/serna/Compiladores /Lexer/pruebas/pruebaid.txt','r')
 # Guardamos el archivo en una variable codigo
 codigo = archivo.read()
 # Cerramos el archivo
